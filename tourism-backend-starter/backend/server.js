@@ -22,9 +22,24 @@ connectDB();
 const app = express();
 
 // Allow requests only from your two known frontends (customer + admin)
+const cors = require("cors");
+
+const allowedOrigins = [
+  "http://localhost:5173",   // Vite dev server
+  "http://localhost:3000",   // CRA dev server
+  process.env.CLIENT_URL,    // customer app (production)
+  process.env.ADMIN_URL,     // admin app (production)
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL, process.env.ADMIN_URL],
+    origin: function (origin, callback) {
+      // allow requests with no origin (Postman, curl, server-to-server)
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
