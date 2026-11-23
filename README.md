@@ -5,12 +5,16 @@ A full-stack travel booking platform built with the MERN stack, featuring separa
 Built as an individual portfolio project to practice production-style architecture: authentication, role-based access control, database design, and a real customer booking/review workflow.
 
 ## Live Demo
-- Customer app: _add link after deployment_
-- Admin app: _add link after deployment_ (admin credentials not publicly shared)
-- API: _add link after deployment_
+- Customer app: https://travelpro-client.vercel.app
+- Admin app: https://travelpro-admin.vercel.app
+- API: https://tourism-backend-j2wp.onrender.com
 
 ## Screenshots
-_Add a few screenshots here once your app looks polished — homepage, package detail, admin dashboard._
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
 
 ## Features
 
