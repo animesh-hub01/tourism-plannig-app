@@ -27,6 +27,7 @@ const rawOrigins = [
   process.env.ADMIN_URL,
   'http://localhost:5173',
   'http://localhost:5174',
+  'http://localhost:3000',
 ];
 
 const allowedOrigins = rawOrigins
