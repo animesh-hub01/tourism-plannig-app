@@ -21,10 +21,30 @@ connectDB();
 
 const app = express();
 
-// Allow requests only from your two known frontends (customer + admin)
+// Allow requests from customer and admin frontends
+const rawOrigins = [
+  process.env.CLIENT_URL,
+  process.env.ADMIN_URL,
+  'http://localhost:5173',
+  'http://localhost:5174',
+];
+
+const allowedOrigins = rawOrigins
+  .flatMap((url) => (url ? url.split(',') : []))
+  .map((url) => url.trim().replace(/\/$/, ''))
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL, process.env.ADMIN_URL],
+    origin: (origin, callback) => {
+      // Allow requests with no origin (such as health checks, curl, Postman)
+      if (!origin) return callback(null, true);
+      const cleanOrigin = origin.replace(/\/$/, '');
+      if (allowedOrigins.length === 0 || allowedOrigins.includes(cleanOrigin)) {
+        return callback(null, true);
+      }
+      return callback(new Error(`CORS policy blocked access from origin: ${origin}`));
+    },
     credentials: true,
   })
 );
