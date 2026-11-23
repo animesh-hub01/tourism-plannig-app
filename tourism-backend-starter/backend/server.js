@@ -22,7 +22,6 @@ connectDB();
 const app = express();
 
 // Allow requests only from your two known frontends (customer + admin)
-const cors = require("cors");
 
 const allowedOrigins = [
   "http://localhost:5173",   // Vite dev server
